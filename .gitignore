@@ -1,0 +1,32 @@
+## Borrar archivos temporales y compilados de .NET
+[Bb]in/
+[Oo]bj/
+[Tt]estResults/
+
+## Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.doccache
+*.suo
+*.user
+*.userprep
+*.userprefs
+*.v12.suo
+*.v11.suo
+*.v10.suo
+
+## VS Code
+.vscode/
+
+## Rider / IntelliJ
+.idea/
+*.sln.iml
+
+## Archivos de OS
+.DS_Store
+Thumbs.db
+
+## Paquetes NuGet
+*.nupkg
+pkgs/

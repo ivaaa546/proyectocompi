@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:EditorTexto.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:EditorTexto.Models"
+        mc:Ignorable="d"
+        d:DesignWidth="920"
+        d:DesignHeight="560"
+        Width="920"
+        Height="560"
+        MinWidth="760"
+        MinHeight="500"
+        CanResize="True"
+        x:Class="EditorTexto.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Editor de Texto con Conteo"
+        Background="White">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.KeyBindings>
+        <KeyBinding Gesture="F5" Command="{Binding EjecutarAnalisisCommand}"/>
+    </Window.KeyBindings>
+
+    <Window.Styles>
+        <!-- Color 1: azul oscuro para encabezados -->
+        <Style Selector="TextBlock.header">
+            <Setter Property="Foreground" Value="#1F4E79"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <!-- Color 2: gris oscuro para encabezados de tabla -->
+        <Style Selector="Border.tableHeader">
+            <Setter Property="Background" Value="#4A4A4A"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style Selector="Border.tableHeader TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="Border.tableRow">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+        </Style>
+        <Style Selector="Button.f5btn">
+            <Setter Property="Background" Value="#4A4A4A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="52"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+    </Window.Styles>
+
+    <!-- Root grid: header row + content row -->
+    <Grid Margin="14" RowDefinitions="Auto,*" ColumnDefinitions="*,300">
+
+        <!-- Header bar spanning both columns -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="#F0F5FA"
+                CornerRadius="6"
+                Padding="12,8"
+                Margin="0,0,0,10">
+            <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Classes="header"
+                               Text="Laboratorio I"
+                               FontSize="15"/>
+                    <TextBlock Classes="header"
+                               Text="Iván Alexander Icó Cuc - 0902-23-5284"
+                               FontSize="12"
+                               Opacity="0.8"/>
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Classes="f5btn"
+                        Content="F5"
+                        Command="{Binding EjecutarAnalisisCommand}"/>
+            </Grid>
+        </Border>
+
+        <!-- Left: Text Editor -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Margin="0,0,12,0"
+                BorderThickness="1"
+                BorderBrush="#CCCCCC"
+                CornerRadius="4"
+                Background="White">
+            <TextBox Text="{Binding TextoUsuario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Padding="10"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        </Border>
+
+        <!-- Right: Result Tables (always shown, data hidden until F5) -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="14">
+
+            <!-- Tabla de Entradas -->
+            <Border BorderThickness="1" BorderBrush="#CCCCCC" CornerRadius="4">
+                <StackPanel>
+                    <!-- Header row -->
+                    <Grid ColumnDefinitions="*,80">
+                        <Border Grid.Column="0" Classes="tableHeader" CornerRadius="4,0,0,0">
+                            <TextBlock Text="Entradas"/>
+                        </Border>
+                        <Border Grid.Column="1" Classes="tableHeader" CornerRadius="0,4,0,0">
+                            <TextBlock Text="#" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <!-- Data rows (visible only after F5) -->
+                    <StackPanel IsVisible="{Binding MostrarResultados}">
+                        <Grid ColumnDefinitions="*,80">
+                            <Border Grid.Column="0" Classes="tableRow" Background="White">
+                                <TextBlock Text="Palabras" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="1" Classes="tableRow" Background="White">
+                                <TextBlock Text="{Binding TotalPalabras}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,80">
+                            <Border Grid.Column="0" Classes="tableRow" Background="#FAFAFA">
+                                <TextBlock Text="Vocales" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="1" Classes="tableRow" Background="#FAFAFA">
+                                <TextBlock Text="{Binding TotalVocalesUnicas}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Tabla de Vocales -->
+            <Border BorderThickness="1" BorderBrush="#CCCCCC" CornerRadius="4">
+                <StackPanel>
+                    <!-- Header row -->
+                    <Grid ColumnDefinitions="*,80">
+                        <Border Grid.Column="0" Classes="tableHeader" CornerRadius="4,0,0,0">
+                            <TextBlock Text="Vocales"/>
+                        </Border>
+                        <Border Grid.Column="1" Classes="tableHeader" CornerRadius="0,4,0,0">
+                            <TextBlock Text="#" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <!-- Data rows -->
+                    <ItemsControl IsVisible="{Binding MostrarResultados}"
+                                  ItemsSource="{Binding Vocales}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:VocalInfo">
+                                <Grid ColumnDefinitions="*,80">
+                                    <Border Grid.Column="0" Classes="tableRow" Background="White">
+                                        <TextBlock Text="{Binding Vocal}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Classes="tableRow" Background="White">
+                                        <TextBlock Text="{Binding Cantidad}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</Window>
