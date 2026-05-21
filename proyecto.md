@@ -21,3 +21,6 @@ El laboratorio consiste en desarrollar un sistema que contenga un **Editor de Te
 *   **Fecha de Entrega:** 27 de Marzo.
 *   **Puntaje:** 3 puntos sobre actividades.
 *   **Entrega Tardía:** Si se entrega después de la fecha establecida, la nota máxima será del 50%.
+
+
+dotnet run
