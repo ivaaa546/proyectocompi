@@ -101,7 +101,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5" VerticalAlignment="Center">
                         <Button Content="▶" Command="{Binding EjecutarAnalisisCommand}" 
                                 Foreground="Black" FontSize="20" Background="Transparent" BorderThickness="0" 
-                                Padding="0,0,10,0" ToolTip.Tip="Ejecutar (F5)" Cursor="Hand"/>
+                                Padding="0,0,10,0" ToolTip.Tip="Ejecutar" Cursor="Hand"/>
                         <TextBlock Classes="sectionTitle" Text="ENTRADA (editor de texto)" VerticalAlignment="Center"/>
                     </StackPanel>
                     

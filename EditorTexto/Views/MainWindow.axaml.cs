@@ -15,7 +15,7 @@ public partial class MainWindow : Window
 
     private void OnWindowKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key == Key.F5 && DataContext is MainWindowViewModel vm)
+        if ((e.Key == Key.F5 || e.KeySymbol == "¿") && DataContext is MainWindowViewModel vm)
         {
             vm.EjecutarAnalisisCommand.Execute(null);
             e.Handled = true;

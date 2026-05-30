@@ -18,3 +18,11 @@ dotnet run --project EditorTexto/EditorTexto.csproj
 ## Ejecutar
 Ejecutar dentro del directorio de la carpeta EditorTexto: dotnet run
 
+S :: S '+' T | T
+T :: T '*' F | F
+F :: 'a' | 'b' | '('S')'
+
+S :: S '+' T | T
+T :: T '*' F
+T :: F | T '#' F
+F :: 'a' | 'b' | '('S')'
