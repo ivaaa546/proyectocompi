@@ -26,3 +26,6 @@ S :: S '+' T | T
 T :: T '*' F
 T :: F | T '#' F
 F :: 'a' | 'b' | '('S')'
+
+## ejecutar
+dotnet run
