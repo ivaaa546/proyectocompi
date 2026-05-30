@@ -8,7 +8,7 @@
         x:Class="EditorTexto.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Analizador de Gramáticas"
+        Title="Polaris"
         Width="1200" Height="900"
         Background="White">
 
@@ -84,7 +84,10 @@
         <StackPanel Margin="30">
             <!-- Header -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,20">
-                <TextBlock Classes="title" Text="PROYECTO – INDIVIDUAL - 1"/>
+                <StackPanel Margin="0,0,20,0">
+                    <TextBlock Classes="title" Text="Polaris" Margin="0"/>
+                    <TextBlock Text="Iván Alexander Icó Cuc - 0902-23-5284" FontSize="14" Foreground="#555555" Margin="0,5,0,0"/>
+                </StackPanel>
                 <Button Classes="f5btn" Content="F5" Command="{Binding EjecutarAnalisisCommand}"/>
             </StackPanel>
             
@@ -95,9 +98,11 @@
             <Grid ColumnDefinitions="*,40,*">
                 <!-- Left Pane: Input -->
                 <StackPanel Grid.Column="0">
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <TextBlock Text="▶" Foreground="Black" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Classes="sectionTitle" Text="ENTRADA (editor de texto)"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5" VerticalAlignment="Center">
+                        <Button Content="▶" Command="{Binding EjecutarAnalisisCommand}" 
+                                Foreground="Black" FontSize="20" Background="Transparent" BorderThickness="0" 
+                                Padding="0,0,10,0" ToolTip.Tip="Ejecutar (F5)" Cursor="Hand"/>
+                        <TextBlock Classes="sectionTitle" Text="ENTRADA (editor de texto)" VerticalAlignment="Center"/>
                     </StackPanel>
                     
                     <TextBox Classes="editor" Text="{Binding InputText, Mode=TwoWay}" />
